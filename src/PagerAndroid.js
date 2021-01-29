@@ -1,9 +1,10 @@
 /* @flow */
 
 import * as React from 'react';
-import { View, ViewPagerAndroid, StyleSheet, I18nManager } from 'react-native';
+import { View, StyleSheet, I18nManager } from 'react-native';
 import { PagerRendererPropType } from './PropTypes';
 import type { PagerRendererProps } from './TypeDefinitions';
+import ViewPager from '@react-native-community/viewpager';
 
 type PageScrollEvent = {
   nativeEvent: {
@@ -45,7 +46,7 @@ export default class PagerAndroid<T: *> extends React.Component<Props<T>> {
   }
 
   _pageChangeCallabck: any;
-  _viewPager: ?ViewPagerAndroid;
+  _viewPager: ?ViewPager;
   _isIdle: boolean = true;
   _currentIndex = 0;
 
@@ -120,7 +121,7 @@ export default class PagerAndroid<T: *> extends React.Component<Props<T>> {
     this._currentIndex = index;
   };
 
-  _setRef = (el: ?ViewPagerAndroid) => (this._viewPager = el);
+  _setRef = (el: ?ViewPager) => (this._viewPager = el);
 
   render() {
     const {
@@ -146,7 +147,7 @@ export default class PagerAndroid<T: *> extends React.Component<Props<T>> {
     const initialPage = this._getPageIndex(navigationState.index);
 
     return (
-      <ViewPagerAndroid
+      <ViewPager
         key={navigationState.routes.length}
         keyboardDismissMode={keyboardDismissMode}
         initialPage={initialPage}
@@ -158,7 +159,7 @@ export default class PagerAndroid<T: *> extends React.Component<Props<T>> {
         ref={this._setRef}
       >
         {content}
-      </ViewPagerAndroid>
+      </ViewPager>
     );
   }
 }
